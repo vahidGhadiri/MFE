@@ -1,10 +1,14 @@
 import React from "react"
-import { mount } from "marketing/MarketingApp"
-
-console.log('mount', mount)
+import MarketingApp from "./components/MarketingApp"
 
 const App = () => {
-    return <div>Host project </div>
+    return (
+        <div>
+            <h1>Hi There!!</h1>
+            <hr />
+            <MarketingApp />
+        </div>
+    )
 }
 
 export default App 
