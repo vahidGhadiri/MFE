@@ -48,6 +48,8 @@ jobs:
       # Build Project
       - name: Build Project
         run: npm run build
+        env:
+          PRODUCTION_DOMAIN: ${{secrets.PRODUCTION_DOMAIN}}
 
       # Deploy to Vercel
       - name: Deploy to Vercel
