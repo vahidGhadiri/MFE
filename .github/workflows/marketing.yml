@@ -1,0 +1,57 @@
+name: deploy-marketing 
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'marketing/**'
+
+defaults:
+  run:
+    working-directory: marketing
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      # Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      # Cache Node Modules
+      - name: Cache Node Modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
+
+      # Linting (optional)
+      # - name: Run Linter
+      #   run: npm run lint
+
+      # Install Dependencies
+      - name: Install Dependencies
+        run: npm install
+
+      # Run Tests (optional)
+      # - name: Run Tests
+      #   run: npm test
+
+      # Build Project
+      - name: Build Project
+        run: npm run build
+
+      # Deploy to Vercel
+      - name: Deploy to Vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+        run: npx vercel --prod --token=$VERCEL_TOKEN --scope=$VERCEL_ORG_ID
