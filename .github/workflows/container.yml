@@ -33,7 +33,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-modules-
 
-      # Linting
+      # Linting (optional)
       # - name: Run Linter
       #   run: npm run lint
 
@@ -41,7 +41,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      # Run Tests
+      # Run Tests (optional)
       # - name: Run Tests
       #   run: npm test
 
@@ -54,5 +54,4 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-        run: npx vercel --prod --token=$VERCEL_TOKEN --scope=$VERCEL_ORG_ID --project=$VERCEL_PROJECT_ID
+        run: npx vercel --prod --token=$VERCEL_TOKEN --scope=$VERCEL_ORG_ID
